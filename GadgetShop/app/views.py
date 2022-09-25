@@ -4,17 +4,18 @@ from .models import Customer, Product, Cart, OrderPlaced
 
 # def home(request):
 #  return render(request, 'app/home.html')
-
 class ProductView(View):
     def get(self, request):
         laptops = Product.objects.filter(category='L')
         mobiles = Product.objects.filter(category='M')
         return render(request, 'app/home.html', {'laptops':laptops, 'mobiles':mobiles})
 
-
-
-def product_detail(request):
- return render(request, 'app/productdetail.html')
+# def product_detail(request):
+#  return render(request, 'app/productdetail.html')
+class ProductDetail(View):
+    def get(self, request):
+        products = Product.objects.all()
+        return render(request, 'app/productdetail.html', {'products':products})
 
 def add_to_cart(request):
  return render(request, 'app/addtocart.html')
