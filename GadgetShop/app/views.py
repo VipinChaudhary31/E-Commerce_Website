@@ -14,31 +14,42 @@ class ProductDetailView(View):
         return render(request, 'app/productdetail.html', {'products':products})
 
 def add_to_cart(request):
- return render(request, 'app/addtocart.html')
+    return render(request, 'app/addtocart.html')
 
 def buy_now(request):
- return render(request, 'app/buynow.html')
+    return render(request, 'app/buynow.html')
 
 def profile(request):
- return render(request, 'app/profile.html')
+    return render(request, 'app/profile.html')
 
 def address(request):
- return render(request, 'app/address.html')
+    return render(request, 'app/address.html')
 
 def orders(request):
- return render(request, 'app/orders.html')
+    return render(request, 'app/orders.html')
 
 def change_password(request):
- return render(request, 'app/changepassword.html')
+    return render(request, 'app/changepassword.html')
 
-def mobile(request):
- return render(request, 'app/mobile.html')
+def mobile(request, data=None):
+    if data==None:
+        mobiles = Product.objects.filter(category='M')
+    elif data == 'Vivo' or data == 'Samsung' or data == 'Apple' or data =='Asus' or data == 'Realme' or data == 'Redmi':
+        mobiles = Product.objects.filter(category='M').filter(brand=data)
+    return render(request, 'app/mobile.html', {'mobiles':mobiles})
+
+def laptop(request, data=None):
+    if data==None:
+        laptops = Product.objects.filter(category='L')
+    elif data == 'Acer' or data == 'Lenovo' or data == 'Apple' or data =='Asus' or data == 'MSI' or data == 'HP':
+        laptops = Product.objects.filter(category='L').filter(brand=data)
+    return render(request, 'app/laptop.html', {'laptops':laptops})
 
 def login(request):
- return render(request, 'app/login.html')
+    return render(request, 'app/login.html')
 
 def customerregistration(request):
- return render(request, 'app/customerregistration.html')
+    return render(request, 'app/customerregistration.html')
 
 def checkout(request):
- return render(request, 'app/checkout.html')
+    return render(request, 'app/checkout.html')
