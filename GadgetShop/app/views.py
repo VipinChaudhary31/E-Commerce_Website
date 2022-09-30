@@ -4,12 +4,14 @@ from .models import Customer, Product, Cart, OrderPlaced
 from .forms import CustomerRegistrationForm
 from django.contrib import messages
 
+# view for showing products on the home page
 class ProductView(View):
     def get(self, request):
         laptops = Product.objects.filter(category='L')
         mobiles = Product.objects.filter(category='M')
         return render(request, 'app/home.html', {'laptops':laptops, 'mobiles':mobiles})
 
+# view for showing the product details
 class ProductDetailView(View):
     def get(self, request, pk):
         products = Product.objects.get(pk=pk)
@@ -30,9 +32,7 @@ def address(request):
 def orders(request):
     return render(request, 'app/orders.html')
 
-def change_password(request):
-    return render(request, 'app/changepassword.html')
-
+# view for mobile list
 def mobile(request, data=None):
     if data==None:
         mobiles = Product.objects.filter(category='M')
@@ -40,6 +40,7 @@ def mobile(request, data=None):
         mobiles = Product.objects.filter(category='M').filter(brand=data)
     return render(request, 'app/mobile.html', {'mobiles':mobiles})
 
+# view for laptop list
 def laptop(request, data=None):
     if data==None:
         laptops = Product.objects.filter(category='L')
@@ -47,6 +48,7 @@ def laptop(request, data=None):
         laptops = Product.objects.filter(category='L').filter(brand=data)
     return render(request, 'app/laptop.html', {'laptops':laptops})
 
+# view for customer registration 
 class CustomerRegistrationView(View):
     def get(self, request):
         form = CustomerRegistrationForm()
