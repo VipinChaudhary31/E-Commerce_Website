@@ -18,6 +18,10 @@ class ProductDetailView(View):
         return render(request, 'app/productdetail.html', {'products':products})
 
 def add_to_cart(request):
+    user = request.user
+    product_id = request.GET.get('product_id')
+    product = Product.objects.get(id=product_id)
+    Cart(user=user, product=product).save()
     return render(request, 'app/addtocart.html')
 
 def buy_now(request):
