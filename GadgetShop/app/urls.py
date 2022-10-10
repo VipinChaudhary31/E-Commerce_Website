@@ -12,8 +12,11 @@ urlpatterns = [
     # url for showing product details
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name="product-detail"),
 
-    # url for customer section
+    # url for add to cart section
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
+    path('cart/', views.show_cart, name='showcart'),
+
+    # url for customer sectionz
     path('buy/', views.buy_now, name='buy-now'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('address/', views.address, name='address'),
