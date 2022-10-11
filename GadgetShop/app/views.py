@@ -17,6 +17,7 @@ class ProductDetailView(View):
         products = Product.objects.get(pk=pk)
         return render(request, 'app/productdetail.html', {'products':products})
 
+# view for cart page
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
@@ -28,7 +29,18 @@ def show_cart(request):
     if request.user.is_authenticated:
         user = request.user
         cart = Cart.objects.filter(user=user)
-        return render(request, 'app/addtocart.html', {'carts':cart})        
+        amount = 0.0
+        shipping_amount = 1000.0
+        total_amount = 0.0
+        cart_product = [p for p in Cart.objects.all() if p.user==user]
+        if cart_product:
+            for p in cart_product:
+                tempamount = (p.quantity * p.product.selling_price)
+                amount += tempamount
+                totalamount = amount + shipping_amount
+            return render(request, 'app/addtocart.html', {'carts':cart, 'amount':amount, 'totalamount':totalamount})
+    else:
+        return render(request, 'app/emptycart.html')        
 
 def buy_now(request):
     return render(request, 'app/buynow.html')
