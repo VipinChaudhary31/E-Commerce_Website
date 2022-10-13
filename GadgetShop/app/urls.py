@@ -15,6 +15,9 @@ urlpatterns = [
     # url for add to cart section
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
     path('cart/', views.show_cart, name='showcart'),
+    path('pluscart/', views.show_cart),
+    # path('pluscart/', views.show_cart),
+    # path('pluscart/', views.show_cart),
 
     # url for customer sectionz
     path('buy/', views.buy_now, name='buy-now'),
