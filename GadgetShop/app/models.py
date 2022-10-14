@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+# variable which contains the list of states
 STATE_CHOICES = (
 	('Andaman & Nicobar Islands','Andaman & Nicobar Islands'),
 	('Andhra Pradesh','Andhra Pradesh'),
@@ -23,6 +24,7 @@ STATE_CHOICES = (
 	('Tamil Nadu','Tamil Nadu'),
 	)
 
+# models for new customer
 class Customer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200)
@@ -34,11 +36,13 @@ class Customer(models.Model):
 	def __str__(self):
 		return str(self.id)
 
+# variable which contains the list of product choices
 CATEGORY_CHOICES = (
 	('M','Mobile'),
 	('L','laptop'),
 	)
 	
+# model which contains the list of product 
 class Product(models.Model):
 	title = models.CharField(max_length=100)
 	selling_price = models.FloatField()
@@ -51,6 +55,7 @@ class Product(models.Model):
 	def __str__(self):
 		return str(self.id)
 
+# model which contains the product chosed by the user
 class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -59,6 +64,7 @@ class Cart(models.Model):
 	def __str__(self):
 		return str(self.id)
 
+# vaible showing the status of the product
 STATUS_CHOICES = (
 	('Accepted','Accepted'),
 	('Packed','Packed'),
@@ -67,6 +73,7 @@ STATUS_CHOICES = (
 	('Cancel','Cancel')
 	)
 
+# model showing the list of order placed 
 class OrderPlaced(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE)

@@ -6,20 +6,20 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
 
-# view for showing products on the home page
+# class based view for showing products on the home page
 class ProductView(View):
     def get(self, request):
         laptops = Product.objects.filter(category='L')
         mobiles = Product.objects.filter(category='M')
         return render(request, 'app/home.html', {'laptops':laptops, 'mobiles':mobiles})
 
-# view for showing the product details
+# class based view for showing product details
 class ProductDetailView(View):
     def get(self, request, pk):
         products = Product.objects.get(pk=pk)
         return render(request, 'app/productdetail.html', {'products':products})
 
-# view for cart page
+# function based view for taking user to the cart page
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
@@ -27,7 +27,7 @@ def add_to_cart(request):
     Cart(user=user, product=product).save()
     return redirect('/cart')
 
-# function for showing all the products selected by user in the cart
+# function based view for showing all products selected by user in cart page
 def show_cart(request):
     if request.user.is_authenticated:
         user = request.user
@@ -45,7 +45,7 @@ def show_cart(request):
         else:
             return render(request, 'app/emptycart.html') 
 
-# plus cart function for increasing the quantity of product in the cart
+# function based view for increasing quantity of product in cart
 def plus_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
@@ -67,7 +67,7 @@ def plus_cart(request):
         return JsonResponse(data)
 
 
-# minus cart function for decreasing the quantity of product in the cart
+# function based view for decreasing quantity of product in cart
 def minus_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
@@ -88,7 +88,7 @@ def minus_cart(request):
         }
         return JsonResponse(data)
 
-# remove cart function for removing product from the cart
+# function based view for removing product from the cart
 def remove_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
@@ -107,21 +107,20 @@ def remove_cart(request):
         }
         return JsonResponse(data)
 
-
-
-
+# function based view buy now page
 def buy_now(request):
     return render(request, 'app/buynow.html')
 
-# view for address of the customer
+# fucntion based view for address of the customer
 def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request, 'app/address.html', {'add':add})
 
+functin based view for order page
 def orders(request):
     return render(request, 'app/orders.html')
 
-# view for mobile list
+# function based lview for mobile list
 def mobile(request, data=None):
     if data==None:
         mobiles = Product.objects.filter(category='M')
@@ -129,7 +128,7 @@ def mobile(request, data=None):
         mobiles = Product.objects.filter(category='M').filter(brand=data)
     return render(request, 'app/mobile.html', {'mobiles':mobiles})
 
-# view for laptop list
+# fuction based view for laptop list
 def laptop(request, data=None):
     if data==None:
         laptops = Product.objects.filter(category='L')
@@ -137,7 +136,7 @@ def laptop(request, data=None):
         laptops = Product.objects.filter(category='L').filter(brand=data)
     return render(request, 'app/laptop.html', {'laptops':laptops})
 
-# view for customer registration 
+# class based view for customer registration page 
 class CustomerRegistrationView(View):
     def get(self, request):
         form = CustomerRegistrationForm()
@@ -150,10 +149,11 @@ class CustomerRegistrationView(View):
             form.save()
         return render(request, 'app/customerregistration.html', {'form':form})
 
+# function based view for checkout
 def checkout(request):
     return render(request, 'app/checkout.html')
 
-# view for profiles
+# class based view for profiles page
 class ProfileView(View):
     def get(self, request):
         form = CustomerProfileForm()

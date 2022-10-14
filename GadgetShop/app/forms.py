@@ -5,6 +5,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth import password_validation
 from .models import Customer
 
+# form for customer registration
 class CustomerRegistrationForm(UserCreationForm):
 	password1=forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	password2=forms.CharField(label='Confirm Password (again)', widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -15,10 +16,12 @@ class CustomerRegistrationForm(UserCreationForm):
 		labels = {'email': 'Email'}
 		widgets = {'username':forms.TextInput(attrs= {'class':'form-control'})}
 
+# form for login of the user
 class LoginForm(AuthenticationForm):
 	username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
 	password = forms.CharField(label=_("password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
 
+# form for password change from the user
 class MyPasswordChangeForm(PasswordChangeForm):
 	old_Password = forms.CharField(label=_('Old Password'), strip=False, widget=forms.PasswordInput(attrs={
 		'autocomplete':'current-password', 'autofocus':True, 'class':'form-control'}))
@@ -26,6 +29,7 @@ class MyPasswordChangeForm(PasswordChangeForm):
 		'autocomplete':'new-password', 'class':'form-control'}), help_text=password_validation.password_validators_help_text_html())
 	new_Password2 = forms.CharField(label=_('Confirm new Password'), strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'new-password', 'class':'form-control'}))
 
+# form for customer profile and updating the profiles by the customer
 class CustomerProfileForm(forms.ModelForm):
 	class Meta:
 		model = Customer

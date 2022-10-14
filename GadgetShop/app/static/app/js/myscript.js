@@ -1,3 +1,4 @@
+// js for slider on the base web page
 $('#slider1, #slider2, #slider3').owlCarousel({
     loop: true,
     margin: 20,
@@ -22,7 +23,7 @@ $('#slider1, #slider2, #slider3').owlCarousel({
     }
 })
 
-
+// js for increasing quantity of product in cart
 $('.plus-cart').click(function () {
     var id = $(this).attr("pid").toString();
     var eml = this.parentNode.children[2]
@@ -40,6 +41,7 @@ $('.plus-cart').click(function () {
     })
 })
 
+// js for decreasing quantity of product in cart
 $('.minus-cart').click(function () {
     var id = $(this).attr("pid").toString();
     var eml = this.parentNode.children[2]
@@ -57,6 +59,7 @@ $('.minus-cart').click(function () {
     })
 })
 
+// js for removing product from the cart
 $('.remove-cart').click(function () {
     var id = $(this).attr("pid").toString();
     var eml = this
