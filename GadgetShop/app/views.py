@@ -151,7 +151,19 @@ class CustomerRegistrationView(View):
 
 # function based view for checkout
 def checkout(request):
-    return render(request, 'app/checkout.html')
+    user = request.user
+    add = Customer.objects.filter(user=user)
+    cart_items = Cart.objects.filter(user=user)
+    amount = 0
+    shipping_amount = 1000
+    totalamount = 1000
+    cart_product = [p for p in Cart.objects.all() if p.user==request.user]
+    if cart_product:    
+        for p in cart_product:
+            tempamount = (p.quantity * p.product.selling_price)
+            amount += tempamount
+        totalamount = amount + shipping_amount
+    return render(request, 'app/checkout.html',{'add':add, 'totalamount':totalamount, 'cart_items':cart_items})
 
 # class based view for profiles page
 class ProfileView(View):
