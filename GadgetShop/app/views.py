@@ -116,7 +116,7 @@ def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request, 'app/address.html', {'add':add})
 
-functin based view for order page
+# functin based view for order page
 def orders(request):
     return render(request, 'app/orders.html')
 
