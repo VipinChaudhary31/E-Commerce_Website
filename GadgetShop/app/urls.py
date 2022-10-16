@@ -19,6 +19,10 @@ urlpatterns = [
     path('minuscart/', views.minus_cart),
     path('removecart/', views.remove_cart),
 
+    # url for checkout and payment done after the user has selected the products he want to buy
+    path('checkout/', views.checkout, name='checkout'),
+    path('paymentdone/', views.payment_done, name='paymentdone'),
+
     # url for customer section
     path('buy/', views.buy_now, name='buy-now'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
@@ -41,6 +45,5 @@ urlpatterns = [
 
     # url for registration
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
-    path('checkout/', views.checkout, name='checkout'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
