@@ -13,13 +13,23 @@
    <p><h3>Product Description:</h3>{{products.description}}</p>
    <h4>Rs. {{products.selling_price}} </h4>
    
-   {# form for taking data from the page #}
-   <form action="/add-to-cart" class="d-inline">
-    <input type="hidden" name="prod_id" value={{products.id}} id="prod_id">
-    <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
-   </form>
-
-   <a href="{% url 'buy-now' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
+   {% if request.user.is_authenticated %}
+       {% if item_already_in_cart %}
+       <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to cart</a>
+       {% else %}
+       {# form for taking data from the page #}
+       <form action="/add-to-cart" class="d-inline">
+        <input type="hidden" name="prod_id" value={{products.id}} id="prod_id">
+        <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+       </form>
+       {% endif %}
+   {% else %}
+       <form action="/add-to-cart" class="d-inline">
+        <input type="hidden" name="prod_id" value={{products.id}} id="prod_id">
+        <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+       </form>
+   {% endif %}
+   <a href="{% url 'showcart' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
   </div>
  </div>
 </div>
