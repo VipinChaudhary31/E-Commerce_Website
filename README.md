@@ -5,34 +5,31 @@
 **Client:** HTML, CSS, Bootstrap, javascript, 
 
 **Server:** Python, Django 
-
-
-## Installation
     
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/VipinChaudhary31/E-Commerce_Website.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd GadgetShop
 ```
 
 Install dependencies
 
-```bash
-  npm install
+```pip
+   pip install requirements.txt
 ```
 
 Start the server
 
-```bash
-  npm run start
+```cmd or powershell
+  python manage.py runserver
 ```
 
 
